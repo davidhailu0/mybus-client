@@ -27,7 +27,8 @@ jobs:
 workflows:
   my_first_workflow:  #name of workflow
     jobs:
-      - hello_world:
+      - hello_world
+      - another_job:
           type: approval
           requires:
-            - another_job
+            - hello_world
