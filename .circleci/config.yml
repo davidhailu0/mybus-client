@@ -23,6 +23,7 @@ jobs:
       - run:
           name: The Second Step
           command: >
+            node
             console.log("Hello World")
 workflows:
   my_first_workflow:  #name of workflow
