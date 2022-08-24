@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  hello_world:
     docker:
       - image: cimg/base:2021.04
     steps:
@@ -16,3 +16,18 @@ jobs:
           command: |
             ls -la
             echo "The Files in my git repository"
+  another_job:
+    docker:
+      - image: node:14-alpine3.15
+    steps:
+      - run:
+          name: The Second Step
+          command: >
+            console.log("Hello World")
+workflows:
+  my_first_workflow:  #name of workflow
+    jobs:
+      - hello_world:
+          type: approval
+          requires:
+            - another_job
