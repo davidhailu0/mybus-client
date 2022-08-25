@@ -1,10 +1,7 @@
+import Routes from './Routes'
 
 function App() {
-  return (
-    <div className="App">
-      Hello From Docker
-    </div>
-  );
+  return <Routes/>
 }
 
 export default App;
