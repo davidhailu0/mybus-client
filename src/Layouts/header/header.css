@@ -1,0 +1,9 @@
+.overlay{
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    position: absolute;
+    top:4.9rem;
+    left: 7px;
+    right: 1rem;
+    height:85vh;
+    width: 99%;
+}
