@@ -4,7 +4,7 @@ import SelectComponent from "../../Components/selectComponent"
 import { places } from "./places"
 import DepartureDatePicker from "../../Components/datePicker"
 import CustomButton from "../../Components/Button"
-import './passengerForm.css'
+import { getRequest } from "../../utils/request-api"
 
 const getCardsOfTheWeek = (departureDateButtons)=>{
     const nextDay = new Date();
@@ -16,19 +16,25 @@ const getCardsOfTheWeek = (departureDateButtons)=>{
 }
 
 export default function PassengerForm(){
-    const [startingPlace,setStaringPlace] = useState("Addis Ababa")
-    const [destination,setDestination] = useState("Addis Ababa")
+    const [startingPlace,setStaringPlace] = useState("")
+    const [destination,setDestination] = useState("")
     const [departureDateValue,setDepartureDate] = useState(null)
     const departureDateButtons = [];
+
+    const submitForm = async (e)=>{
+        e.preventDefault()
+        const respData = await getRequest(`?starting_place=${startingPlace}&destination=${destination}&date=${departureDateValue}`)
+        console.log(respData)
+    }
     
-    return <Box component={'form'} className="passengerForm_container">
+    return <Box component={'form'} sx={{width:{xs:"100%",md:"50%"},mt:"2rem"}}>
      <Typography textAlign={"center"} variant="h3">Search for Trips</Typography>
-     <SelectComponent label={"Leaving From"} value={startingPlace} setValue={setStaringPlace} options={places}/>
-     <SelectComponent label={"Destination"} value={destination} setValue={setDestination} options={places}/>
+     <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStaringPlace(e.target.value)} options={places}/>
+     <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestination(e.target.value)} options={places}/>
      <DepartureDatePicker value={departureDateValue} setDateValue={setDepartureDate}/>
      <Box sx={{display:"flex",justifyContent:"center",mb:"2rem"}}>
      {getCardsOfTheWeek(departureDateButtons)}
      </Box>
-     <Button type="submit" variant="contained" sx={{backgroundColor:"#2fe6c8",display:"block",margin:"auto",textAlign:"center",":hover":{backgroundColor:"black"}}}>Search</Button>
+     <Button type="submit" variant="contained" onClick={submitForm} sx={{backgroundColor:"#2fe6c8",display:"block",margin:"auto",textAlign:"center",":hover":{backgroundColor:"black"}}}>Search</Button>
     </Box>
 }
