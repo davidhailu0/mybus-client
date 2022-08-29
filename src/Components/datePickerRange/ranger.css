@@ -1,0 +1,6 @@
+.ant-picker-focused,.ant-picker-input-active,.ant-picker:hover{
+    border-color:#10c9a7
+} 
+.ant-picker-range .ant-picker-active-bar{
+    background:#10c9a7;
+}

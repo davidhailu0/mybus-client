@@ -7,12 +7,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 const customTheme = createTheme({
     palette:{
         primary:{
-            main:"#2fe6c8",
+            main:"#10c9a7",
         },
     }
 }) 
 
-export default function SelectComponent({label,value,setValue,options,placeholder}){
+export default function SelectComponent({label,value,setValue,options,placeholder,error}){
     return(<ThemeProvider theme={customTheme}>
         <FormControl sx={{width:"47%","&:hover fieldset":{borderWidth:"3px"},margin:"2rem 0.5rem 1rem"}}>
             <InputLabel id={label}>{label}</InputLabel>
@@ -23,8 +23,11 @@ export default function SelectComponent({label,value,setValue,options,placeholde
             label={label}
             placeholder={placeholder}
             onChange={setValue}
+            error={error}
             >
-            {options.map((opt)=><MenuItem key={opt} value={opt}>{opt}</MenuItem>)}
+            {options.map((opt)=><MenuItem key={opt} value={opt}>
+                <img src="https://en.wikipedia.org/wiki/Dessie#/media/File:Dessie_TosssaView.JPG" alt="dessie"/>
+                {opt}</MenuItem>)}
             </Select>
         </FormControl>
       </ThemeProvider>);

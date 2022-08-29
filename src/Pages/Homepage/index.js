@@ -1,7 +1,9 @@
-import Header from '../../Layouts/header';
+import { Outlet } from 'react-router-dom';
+import ResponsiveAppBar from '../../Layouts/appbar';
 
 export default function Homepage(){
     return (<>
-        <Header/>
+        <ResponsiveAppBar/>
+        <Outlet/>
     </>)
 }
