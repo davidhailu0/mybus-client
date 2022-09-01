@@ -9,10 +9,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from 'react-router-dom';
 import bus_logo from '../../Assets/images/bus_logo.png'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const pages = ['Routes', 'Buses', 'About Us'];
+const pages = ['For Passengers', 'For Buses'];
 
 const customTheme = createTheme({
     palette:{
@@ -24,13 +25,24 @@ const customTheme = createTheme({
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = ()=>{
     setAnchorElNav(null);
+  }
+
+  const goTo = (page) => {
+    setAnchorElNav(null);
+    if(page==="For Passengers"){
+      navigate("/")
+    }
+    else{
+      navigate(`/forBus`)
+    }
   };
 
   return (
@@ -110,7 +122,7 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={()=>goTo(page)}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -120,7 +132,8 @@ const ResponsiveAppBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={()=>goTo(page)}
+                className={page.split(" ").join("_")}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page}

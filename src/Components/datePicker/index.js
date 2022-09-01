@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { Box } from '@mui/material';
@@ -16,7 +16,7 @@ const customTheme = createTheme({
 }) 
 
 export default function DepartureDatePicker({value,setDateValue,error}){
-    return (<LocalizationProvider dateAdapter={AdapterDayjs}>
+    return (<LocalizationProvider dateAdapter={AdapterMoment}>
         <Box sx={{display:{md:"flex",xs:'none'}}}>
         <ThemeProvider theme={customTheme}>
         <DesktopDatePicker
@@ -25,8 +25,8 @@ export default function DepartureDatePicker({value,setDateValue,error}){
             value={value}
             disablePast
             onChange={(value)=>{
-              console.log(value)
-              setDateValue(value)
+              const date = new Date(value)
+              setDateValue(date.getTime())
             }}
             renderInput={(params) => <TextField {...params} required error={error} fullWidth sx={{width:"96%",margin:"1rem 0.5rem 2rem",":hover fieldset":{borderWidth:"3px"}}}/>}
           />

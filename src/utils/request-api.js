@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = "http://localhost:9000/"
+const baseURL = "http://localhost:9000/api/trip/"
 
 export const postRequest = async(endpoint,data,token)=>{
     try{
