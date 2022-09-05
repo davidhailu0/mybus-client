@@ -7,7 +7,7 @@ pipeline{
     }
     environment{
         JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
-        CYPRESS_CACHE_FOLDER = "/home/node/.cache/Cypress"
+        CYPRESS_CACHE_FOLDER = "./tmp/Cypress npx cy run"
         // NEW_VERSION = "1.3"
         // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
     }
