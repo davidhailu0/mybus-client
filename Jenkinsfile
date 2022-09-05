@@ -26,7 +26,6 @@ pipeline{
             //     }
             // }
             steps{
-                sh "apt-get install xvfb"
                 sh "npm run test"
             }
         }
