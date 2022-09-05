@@ -22,7 +22,7 @@ export default function ResultPage(){
             <PassengerForm starting_place={searchParams.get("starting_place")} destination_place={searchParams.get("destination")} date={searchParams.get("date")}/>
             <Box sx={{overflowY:"scroll",mt:"2rem",textAlign:"center",width:"50vw"}}>
                 <Typography variant="h3">Search Result</Typography>
-                {routeData.length===0?<Typography variant="h4" marginTop={"2rem"}>No Trips Found</Typography> :routeData.map((routeObj,ind)=><ResultCard key={ind} {...routeObj}/>)}
+                {routeData.length===0?<Typography variant="h4" marginTop={"2rem"}>No Trips Found</Typography> :routeData.map((routeObj,ind)=><ResultCard key={ind} {...routeObj} date={searchParams.get("date")}/>)}
             </Box>
         </Box>
     </>)

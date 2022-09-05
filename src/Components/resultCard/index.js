@@ -25,8 +25,8 @@ export default function ResultCard({starting_place,destination,date,price}){
       </Typography>
       <Box sx={{height:"5px",width:"50%",background:"grey",margin:"0 1rem",display:"inline-flex"}}></Box>
      <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>{destination}</Typography>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Date: {date}</Typography>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Price: {price}</Typography>
+     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
+     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Price: {price} birr</Typography>
     </CardContent>
     <CardActions sx={{display:"flex",justifyContent:"flex-end"}}>
       <ThemeProvider theme={customTheme}>
