@@ -5,10 +5,10 @@ pipeline{
             args "-p 3000:3000"
         }
     }
-    environment{
+    // environment{
         // NEW_VERSION = "1.3"
         // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
-    }
+    // }
     // tools{
         
     // }
