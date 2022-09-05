@@ -5,10 +5,11 @@ pipeline{
             args "-p 3000:3000"
         }
     }
-    // environment{
-    //     NEW_VERSION = "1.3"
-    //     SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
-    // }
+    environment{
+        JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true"
+        // NEW_VERSION = "1.3"
+        // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
+    }
     // tools{
         
     // }
