@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker{
-            image "davidhailu0/customnode:latest"
+            image "cypress/base:10"
             args "-p 3000:3000"
         }
     }
@@ -15,7 +15,7 @@ pipeline{
     stages{
         stage("Build"){
             steps{
-                sh "npm install --unsafe-perm=true --allow-root"
+                sh "npm install"
             }
         }
 
