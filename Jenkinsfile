@@ -15,7 +15,7 @@ pipeline{
     stages{
         stage("Build"){
             steps{
-                sh "npm install"
+                sh "yarn install"
             }
         }
 
@@ -26,13 +26,13 @@ pipeline{
             //     }
             // }
             steps{
-                sh "npm run test"
+                sh "yarn run test"
             }
         }
 
         stage("Deploy"){
             steps{
-                sh "npm start"
+                sh "yarn start"
                 // sh "${SERVER_CREDENTIAL}"
                 // //another
                 // withCredentials([usernamePassword(credentials:"credential ID",usernameVariable:USER,passwordVariable:PWD)]){
