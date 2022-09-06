@@ -15,8 +15,8 @@ pipeline{
     stages{
         stage("Prepare"){
             steps{
-                sh "sudo npm install cypress -g"
-                sh "sudo npm cache clean --force"
+                sh "npm install cypress -g"
+                sh "npm cache clean --force"
             }
         }
         stage("Build"){
