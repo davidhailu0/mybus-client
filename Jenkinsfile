@@ -26,8 +26,7 @@ pipeline{
             //     }
             // }
             steps{
-                sh "npm start"
-                sh "npm run test"
+                sh "npm run ci:e2e"
             }
         }
 
