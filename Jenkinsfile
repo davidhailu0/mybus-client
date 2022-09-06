@@ -26,13 +26,14 @@ pipeline{
             //     }
             // }
             steps{
+                sh "npm start"
                 sh "npm run test"
             }
         }
 
         stage("Deploy"){
             steps{
-                sh "npm start"
+                // sh "npm start"
                 // sh "${SERVER_CREDENTIAL}"
                 // //another
                 // withCredentials([usernamePassword(credentials:"credential ID",usernameVariable:USER,passwordVariable:PWD)]){
