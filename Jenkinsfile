@@ -13,11 +13,16 @@ pipeline{
         
     // }
     stages{
+        stage("Prepare"){
+            steps{
+                sh "sudo npm install cypress -g"
+                sh "sudo npm cache clean --force"
+            }
+        }
         stage("Build"){
             steps{
-                sh "npm install -g yarn"
-                sh "sudo npm cache clean --force"
-                sh "yarn install"
+                
+                sh "npm install"
             }
         }
 
@@ -28,13 +33,13 @@ pipeline{
             //     }
             // }
             steps{
-                sh "yarn run test"
+                sh "npm run test"
             }
         }
 
         stage("Deploy"){
             steps{
-                sh "yarn start"
+                sh "npm start"
                 // sh "${SERVER_CREDENTIAL}"
                 // //another
                 // withCredentials([usernamePassword(credentials:"credential ID",usernameVariable:USER,passwordVariable:PWD)]){
