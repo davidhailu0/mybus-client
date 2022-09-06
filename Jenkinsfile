@@ -16,6 +16,7 @@ pipeline{
         stage("Build"){
             steps{
                 sh "npm install -g yarn"
+                sh "sudo npm cache clean --force"
                 sh "yarn install"
             }
         }
