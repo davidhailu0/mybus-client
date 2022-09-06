@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker{
-            image "davidhailu0/customnode"
+            image "cypress/base:latest"
             args "-p 3000:3000"
         }
     }
@@ -13,15 +13,8 @@ pipeline{
         
     // }
     stages{
-        stage("Prepare"){
-            steps{
-                sh "npm install cypress -g"
-                sh "npm cache clean --force"
-            }
-        }
         stage("Build"){
             steps{
-                
                 sh "npm install"
             }
         }
