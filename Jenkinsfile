@@ -31,15 +31,15 @@ pipeline{
             }
         }
 
-        stage("Deploy"){
-            steps{
+        // stage("Deploy"){
+        //     steps{
                 // sh "npm start"
                 // sh "${SERVER_CREDENTIAL}"
                 // //another
                 // withCredentials([usernamePassword(credentials:"credential ID",usernameVariable:USER,passwordVariable:PWD)]){
 
                 // }
-            }
+            // }
         }
     }
     // post{
