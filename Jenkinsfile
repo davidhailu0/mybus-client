@@ -12,7 +12,7 @@ pipeline{
 
             agent {
                 docker{
-                    image "docker:latest"
+                    image "davidhailu0/customdocker"
                 }
             }
             steps{
