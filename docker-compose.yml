@@ -1,9 +1,16 @@
 version: "3.7"
 services:
   web:
+    container_name: web
     build: ./
     stdin_open: true
     # depends_on:
     #   - serviceName
+    ports:
+      - 3000:3000
+  test:
+    build: ./
+    container_name: test
+    command: yarn run ci:e2e
     ports:
       - 3000:3000
