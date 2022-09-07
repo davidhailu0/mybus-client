@@ -21,12 +21,6 @@ pipeline{
         }
 
         stage("Test"){
-            agent {
-                // this image provides everything needed to run Cypress
-                docker {
-                image 'cypress/base:latest'
-                }
-            }
             // when{
             //     expression{
             //         env.BRANCH_NAME == "DEV"
