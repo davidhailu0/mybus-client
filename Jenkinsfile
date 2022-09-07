@@ -2,7 +2,7 @@ pipeline{
    agent {
         docker{
                 image "davidhailu0/customdocker"
-                args "--env DOCKER_HOST=tcp://docker:2376 -u root"
+                args " -u root"
             }
         }
     // environment{
