@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import { places } from "./places"
 import DepartureDatePicker from "../../Components/datePicker"
 import CustomButton from "../../Components/Button"
-import SearchBar from "../../Components/Searchfield"
 
 export default function PassengerForm({starting_place,destination_place,date}){
     const [startingPlace,setStaringPlace] = useState(starting_place||"")
@@ -15,8 +14,6 @@ export default function PassengerForm({starting_place,destination_place,date}){
     const [departureDateValue,setDepartureDate] = useState(date?parseInt(date):null)
     const [departureDateError,setDepartureDateError] = useState(false)
     const departureDateButtons = [];
-    const [searchValue,setSearchValue] = useState("")
-    const [searchBarError,setSearchBarError] = useState(false)
     const navigate = useNavigate()
 
     const submitForm = (e)=>{
@@ -56,16 +53,6 @@ export default function PassengerForm({starting_place,destination_place,date}){
 
     const customButtonClicked = (utcTime)=>{
         setDepartureDate(utcTime)
-    }
-
-    const searchForTicket = ()=>{
-        if(searchValue!==""){
-            navigate(`/ticketSearch/${searchValue}`)
-        }
-       else{
-            console.log("search button pressed")
-            setSearchBarError(true)
-       }
     }
     
     return <Box component={'form'} sx={{width:"50%",margin:"2rem auto"}}>
