@@ -2,7 +2,7 @@ pipeline{
    agent {
         docker{
                 image "davidhailu0/customdocker"
-                args " -u root"
+                args "-v /var/run/docker.sock:/var/run/docker.sock -u root"
             }
         }
     // environment{
