@@ -13,6 +13,7 @@ pipeline{
             agent {
                 docker{
                     image "davidhailu0/customdocker"
+                    args "-u root"
                 }
             }
             steps{
