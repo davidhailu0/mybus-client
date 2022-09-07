@@ -1,10 +1,10 @@
 pipeline{
    agent {
-                docker{
-                    image "cypress/base:latest"
-                    args "-p 3000:3000"
-                }
+        docker{
+                image "davidhailu0/customdocker"
+                args "-u root"
             }
+        }
     // environment{
         // NEW_VERSION = "1.3"
         // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
@@ -13,16 +13,9 @@ pipeline{
         
     // }
     stages{
-        stage("Build"){
-
-            // agent {
-            //     docker{
-            //         image "davidhailu0/customdocker"
-            //         args "-u root"
-            //     }
-            // }
+        stage("Build"){   
             steps{
-                sh "npm install"
+                sh "docker-compose build web"
             }
         }
 
