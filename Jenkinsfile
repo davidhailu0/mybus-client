@@ -1,5 +1,10 @@
 pipeline{
-    agent none
+   agent {
+                docker{
+                    image "cypress/base:latest"
+                    args "-p 3000:3000"
+                }
+            }
     // environment{
         // NEW_VERSION = "1.3"
         // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
@@ -22,12 +27,6 @@ pipeline{
         }
 
         stage("Test"){
-            agent {
-                docker{
-                    image "cypress/base:latest"
-                    args "-p 3000:3000"
-                }
-            }
             // when{
             //     expression{
             //         env.BRANCH_NAME == "DEV"
