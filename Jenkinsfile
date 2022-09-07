@@ -15,12 +15,12 @@ pipeline{
     stages{
         stage("Build"){
 
-            agent {
-                docker{
-                    image "davidhailu0/customdocker"
-                    args "-u root"
-                }
-            }
+            // agent {
+            //     docker{
+            //         image "davidhailu0/customdocker"
+            //         args "-u root"
+            //     }
+            // }
             steps{
                 sh "npm install"
             }
