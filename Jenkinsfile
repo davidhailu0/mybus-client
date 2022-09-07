@@ -16,7 +16,6 @@ pipeline{
                 }
             }
             steps{
-                sh "docker --version"
                 sh "npm install"
             }
         }
