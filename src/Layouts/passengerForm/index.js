@@ -68,7 +68,7 @@ export default function PassengerForm({starting_place,destination_place,date}){
        }
     }
     
-    return <Box sx={{textAlign:"center"}}><SearchBar error={searchBarError} callBackOnSearch={searchForTicket} setSearchValue={setSearchValue}/><Box component={'form'} sx={{width:"50%",margin:"2rem auto"}}>
+    return <Box component={'form'} sx={{width:"50%",margin:"2rem auto"}}>
      <Typography textAlign={"center"} variant="h3">Search for Trips</Typography>
      <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlaceValue(e.target.value)} options={places} error={starting_placeError}/>
      <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestinationPlaceValue(e.target.value)} options={places} error={destinationError}/>
@@ -80,5 +80,4 @@ export default function PassengerForm({starting_place,destination_place,date}){
         Search
      </Button>
      </Box>
-</Box>
 }
