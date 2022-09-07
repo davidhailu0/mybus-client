@@ -15,7 +15,7 @@ pipeline{
     stages{
         stage("Build"){   
             steps{
-                sh "docker-compose build web"
+                 sh "docker --help"
             }
         }
 
