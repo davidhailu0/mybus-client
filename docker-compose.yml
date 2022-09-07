@@ -11,6 +11,6 @@ services:
   test:
     build: ./
     container_name: test
-    command: yarn run ci:e2e
+    command: npm run ci:e2e
     ports:
       - 3000:3000
