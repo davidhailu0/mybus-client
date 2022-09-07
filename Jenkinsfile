@@ -26,7 +26,7 @@ pipeline{
             //     }
             // }
             steps{
-                sh "npm run ci:e2e"
+                sh "docker-compose run web"
             }
         }
 
