@@ -12,7 +12,7 @@ export default function MyBusRoutes(){
                 <Route path="forBus" element={<BusCompanyForm/>}/>
             </Route>
             <Route path="/searchResult" element={<TicketResultPage/>} />
-            {/* <Route path="/ticketSearch" element={}/> */}
+            <Route path="/ticketSearch" element={<TicketResultPage/>}/>
         </Routes>
     </Router>);
 }
