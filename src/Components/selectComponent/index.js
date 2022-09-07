@@ -15,7 +15,7 @@ const customTheme = createTheme({
 
 export default function SelectComponent({label,value,setValue,options,placeholder,error}){
     return(<ThemeProvider theme={customTheme}>
-        <FormControl sx={{width:"47%","&:hover fieldset":{borderWidth:"3px"},margin:"2rem 0.5rem 1rem"}}>
+        <FormControl sx={{width:{md:"47%",xs:"100%"},"&:hover fieldset":{borderWidth:"3px"},margin:"2rem 0.5rem 1rem"}}>
             <InputLabel id={label}>{label}</InputLabel>
             <Select
             labelId={label}

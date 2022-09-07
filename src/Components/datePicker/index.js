@@ -40,7 +40,7 @@ export default function DepartureDatePicker({value,setDateValue,error}){
             value={value}
             disablePast
             onChange={setDateValue}
-            renderInput={(params) => <TextField {...params} fullWidth sx={{":hover fieldset":{borderWidth:"2px"}}}/>}
+            renderInput={(params) => <TextField {...params} fullWidth sx={{":hover fieldset":{borderWidth:"2px"},margin:"2rem 0"}}/>}
           />
           </ThemeProvider>
         </Box>

@@ -14,7 +14,7 @@ export default function TicketResultPage(){
             setSearchResult(data)
         }
        fetchData()
-    },ticketId)
+    },[ticketId])
 
     return (<>
     <Appbar/>

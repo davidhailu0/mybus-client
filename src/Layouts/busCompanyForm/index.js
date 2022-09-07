@@ -22,7 +22,7 @@ export default function BusCompanyForm(){
 
     const submitForm = async(e)=>{
         e.preventDefault()
-        const respData = await postRequest("/bus/addTrip",{
+        const respData = await postRequest("/trip/addTrip",{
             starting_place:startingPlace,
             destination,price:ticketPrice,dateFrom:departureDateValue[0],dateUpto:departureDateValue[1]
         },null)
