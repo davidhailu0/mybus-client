@@ -26,7 +26,7 @@ pipeline{
             //     }
             // }
             steps{
-                sh "docker-compose run web"
+                sh "docker --help"
             }
         }
 
