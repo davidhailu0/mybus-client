@@ -2,7 +2,7 @@ pipeline{
    agent {
         docker{
                 image "davidhailu0/customdocker"
-                args "-u root"
+                args "--env DOCKER_HOST=tcp://docker:2376 --env DOCKER_CERT_PATH=/certs/client  --env DOCKER_TLS_VERIFY=1 -u root"
             }
         }
     // environment{
