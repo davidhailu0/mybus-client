@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {CardContent,CardActions,Card,Button,Typography,Box} from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { postRequest } from "../../utils/request-api";
 
 const customTheme = createTheme({
     palette:{
@@ -14,8 +15,11 @@ const customTheme = createTheme({
 
 export default function ResultCard({starting_place,destination,date,price}){
   const [buttonText,setButtonText] = useState("Book Ticket")
-
-  const buttonClicked = ()=>{
+  const [responseData,setResponseData] = useState(null) 
+  const buttonClicked = async()=>{
+    const data = await postRequest("/ticket/buyticket",{starting_place,destination,date,price})
+    setResponseData(data)
+    
     setButtonText("Booked")
   }
     return (<Card sx={{width:"45vw",m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">

@@ -1,6 +1,6 @@
 import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
 import Homepage from "../Pages/Homepage";
-import ResultPage from "../Pages/Resultpage";
+import TicketResultPage from "../Pages/TripResultpage";
 import PassengerForm from "../Layouts/passengerForm";
 import BusCompanyForm from "../Layouts/busCompanyForm";
 
@@ -11,7 +11,8 @@ export default function MyBusRoutes(){
                 <Route index element={<PassengerForm/>}/>
                 <Route path="forBus" element={<BusCompanyForm/>}/>
             </Route>
-            <Route path="/searchResult" element={<ResultPage/>} />
+            <Route path="/searchResult" element={<TicketResultPage/>} />
+            {/* <Route path="/ticketSearch" element={}/> */}
         </Routes>
     </Router>);
 }
