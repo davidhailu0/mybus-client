@@ -1,7 +1,7 @@
 pipeline{
    agent {
         docker{
-                image "davidhailu0/customnode"
+                image "davidhailu0/dockercompose"
                 args "-v /var/run/docker.sock:/var/run/docker.sock -u root"
             }
         }
