@@ -11,7 +11,9 @@ services:
     ports:
       - 3000:3000
   test:
-    build: ./
+    build: 
+      context: .
+      dockerfile: dockerfile.test
     container_name: test
     command: npm run ci:e2e
     ports:
