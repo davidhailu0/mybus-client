@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ResponsiveAppBar from '../../Layouts/appbar';
 import PassengerForm from '../../Layouts/passengerForm';
 import SearchBar from '../../Components/Searchfield';
+import { Box } from '@mui/system';
 
 export default function Homepage(){
     const [searchValue,setSearchValue] = useState("")
@@ -17,9 +18,9 @@ export default function Homepage(){
             setSearchBarError(true)
        }
     }
-    return (<>
+    return (<Box sx={{background:"#f5f5f5",height:"100vh"}}>
         <ResponsiveAppBar/>
           <SearchBar callBackOnSearch={searchForTicket} setSearchValue={setSearchValue} error={searchBarError}/>
         <PassengerForm/>
-    </>)
+    </Box>)
 }

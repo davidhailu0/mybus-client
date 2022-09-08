@@ -6,7 +6,7 @@ import Appbar from "../../Layouts/appbar"
 import TicketDetail from "../../Components/TicketDetail"
 
 export default function TicketResultPage(){
-    const {ticketId} = useParams;
+    const {ticketId} = useParams();
     const [searchResult,setSearchResult] = useState(null)
     useEffect(()=>{
         async function fetchData(){
@@ -16,10 +16,10 @@ export default function TicketResultPage(){
        fetchData()
     },[ticketId])
 
-    return (<>
+    return (<Box sx={{height:"100vh",background:"#f5f5f5"}}>
     <Appbar/>
     <Box sx={{textAlign:"center",paddingTop:"3rem"}}>
-        {searchResult?<TicketDetail {...searchResult}/>:<Typography>There is no trip with this ID</Typography>}
+        {searchResult&&searchResult.data!=="No Ticket Found"?<TicketDetail {...searchResult.data}/>:<Typography variant="h3">There is no trip with this ID</Typography>}
     </Box>
-    </>)
+    </Box>)
 }

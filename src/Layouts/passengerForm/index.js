@@ -55,7 +55,7 @@ export default function PassengerForm({starting_place,destination_place,date}){
         setDepartureDate(utcTime)
     }
     
-    return <Box component={'form'} sx={{width:"50%",margin:"2rem auto"}}>
+    return <Box component={'form'} sx={{width:"50%",margin:"3rem auto"}}>
      <Typography textAlign={"center"} variant="h3">Search for Trips</Typography>
      <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlaceValue(e.target.value)} options={places} error={starting_placeError}/>
      <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestinationPlaceValue(e.target.value)} options={places} error={destinationError}/>

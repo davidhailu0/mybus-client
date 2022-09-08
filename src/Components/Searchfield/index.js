@@ -1,4 +1,3 @@
-import { setSectionValue } from '@mui/x-date-pickers/internals/hooks/useField/useField.utils';
 import { Input } from 'antd';
 import "./searchField.css"
 
@@ -12,7 +11,7 @@ export default function SearchBar({callBackOnSearch,setSearchValue,error}){
         size="large"
         status={error?'error':''}
         onSearch={callBackOnSearch}
-        onChange={(value)=>setSectionValue(value)}
+        onChange={(e)=>setSearchValue(e.target.value)}
         style={{margin:"5rem 0 1rem",width:"50vw"}}
       /></div>);
 }

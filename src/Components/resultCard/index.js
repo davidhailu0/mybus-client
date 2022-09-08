@@ -2,6 +2,7 @@ import { useState } from "react";
 import {CardContent,CardActions,Card,Button,Typography,Box} from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { postRequest } from "../../utils/request-api";
+import swal from "sweetalert";
 
 const customTheme = createTheme({
     palette:{
@@ -11,30 +12,28 @@ const customTheme = createTheme({
     }
 }) 
 
-
-
 export default function ResultCard({starting_place,destination,date,price}){
   const [buttonText,setButtonText] = useState("Book Ticket")
-  const [responseData,setResponseData] = useState(null) 
   const buttonClicked = async()=>{
-    const data = await postRequest("/ticket/buyticket",{starting_place,destination,date,price})
-    setResponseData(data)
-    
+    const respData = await postRequest("/ticket/buyticket",{starting_place,destination,date,price})
+    swal("Purchased!", `Your TicketId is ${respData.data._id}`, "success");
     setButtonText("Booked")
   }
     return (<Card sx={{width:"45vw",m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">
-        <CardContent>
-      <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>
-        {starting_place}
-      </Typography>
-      <Box sx={{height:"5px",width:"50%",background:"grey",margin:"0 1rem",display:"inline-flex"}}></Box>
-     <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>{destination}</Typography>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start",ml:"3.5rem"}}>Price: {price} birr</Typography>
+        <CardContent sx={{display:"grid",justifyItems:'flex-start',pl:"3.5rem"}}>
+          <Box sx={{display:"flex",justifyContent:"space-between",width:"90%"}}>
+            <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>
+          {starting_place}
+        </Typography>
+        <Box sx={{height:"5px",width:"70%",background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
+      <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>{destination}</Typography>
+          </Box>
+     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
+     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Price: {price} birr</Typography>
     </CardContent>
     <CardActions sx={{display:"flex",justifyContent:"flex-end"}}>
       <ThemeProvider theme={customTheme}>
-        <Button variant="contained" sx={{color:buttonText==="Book Ticket"?"white":"#10c9a7",background:buttonText==="Book Ticket"?"#10c9a7":"white",":hover":{color:"white",background:"black"}}} testcomponent="bookticket" onClick={buttonClicked}>{buttonText}</Button>
+        <Button variant="contained" sx={{color:"white",background:buttonText==="Book Ticket"?"#10c9a7":"black",":hover":{color:"white",background:"black"}}} testcomponent="bookticket" onClick={buttonClicked}>{buttonText}</Button>
         </ThemeProvider>
     </CardActions>
     </Card>)

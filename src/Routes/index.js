@@ -10,7 +10,7 @@ export default function MyBusRoutes(){
             <Route path="/" exact element={<Homepage/>}/>
             <Route path="forBus" element={<BusCompanyPage/>}/>
             <Route path="/searchResult" element={<TripResultPage/>} />
-            <Route path="/ticketSearch" element={<TicketSearchPage/>}/>
+            <Route path="/ticketSearch/:ticketId" element={<TicketSearchPage/>}/>
         </Routes>
     </Router>);
 }
