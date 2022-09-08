@@ -6,6 +6,8 @@ services:
     stdin_open: true
     # depends_on:
     #   - serviceName
+    volumes:
+      - "/node_modules/.bin:/client/node_modules/.bin"
     ports:
       - 3000:3000
   test:
