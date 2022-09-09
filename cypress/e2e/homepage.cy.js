@@ -35,6 +35,20 @@ describe("Testing the Homepage",()=>{
         })
     })
 
+    it("search field should type",()=>{
+        cy.get("input[placeholder='Enter Your Ticket ID']").click().type("2pzzkx7s1xdq2cja").should("have.value","2pzzkx7s1xdq2cja")
+    })
+    
+    it("should go to search ticket page on click",()=>{
+        cy.get("input[placeholder='Enter Your Ticket ID']").click().type("2pzzkx7s1xdq2cja")
+        cy.get(".ant-input-search-button").click()
+        cy.url().should("include","/ticketSearch/2pzzkx7s1xdq2cja")
+    })
+
+    it("search button should be visible",()=>{
+        cy.get(".ant-input-search-button").should("be.visible")
+    })
+
     it("enter date to the date picker",()=>{
         cy.get("input[placeholder='mm/dd/yyyy']").type("08/13/1999{enter}").should("have.value","08/13/1999")
     })

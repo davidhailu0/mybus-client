@@ -26,4 +26,9 @@ describe("Testing the result page",()=>{
         cy.get(`[testcomponent="resultcard"]`).contains("Bahir Dar").should("have.text","Bahir Dar")
         cy.get(`[testcomponent="bookticket"]`).should("be.visible")
     })
+
+    it("should book ticket when clicked",()=>{
+        cy.get("button[testbutton='bookticket']").click()
+        cy.get("div[role='dialog']").should("be.visible")
+    })
 })

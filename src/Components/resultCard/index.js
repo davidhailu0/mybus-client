@@ -21,19 +21,19 @@ export default function ResultCard({starting_place,destination,date,price}){
   }
     return (<Card sx={{width:"45vw",m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">
         <CardContent sx={{display:"grid",justifyItems:'flex-start',pl:"3.5rem"}}>
-          <Box sx={{display:"flex",justifyContent:"space-between",width:"90%"}}>
-            <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>
+          <Box sx={{display:"flex",justifyContent:"space-between",width:"100%"}}>
+            <Typography sx={{ fontWeight:"bold",display:"flex",width:"20%"}}>
           {starting_place}
         </Typography>
         <Box sx={{height:"5px",width:"70%",background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
-      <Typography sx={{ fontWeight:"bold",display:"inline-flex"}}>{destination}</Typography>
+      <Typography sx={{ fontWeight:"bold",display:"inline-flex",width:"20%"}}>{destination}</Typography>
           </Box>
      <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
      <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Price: {price} birr</Typography>
     </CardContent>
     <CardActions sx={{display:"flex",justifyContent:"flex-end"}}>
       <ThemeProvider theme={customTheme}>
-        <Button variant="contained" sx={{color:"white",background:buttonText==="Book Ticket"?"#10c9a7":"black",":hover":{color:"white",background:"black"}}} testcomponent="bookticket" onClick={buttonClicked}>{buttonText}</Button>
+        <Button variant="contained" testbutton="bookticket" sx={{color:"white",background:buttonText==="Book Ticket"?"#10c9a7":"black",":hover":{color:"white",background:"black"}}} testcomponent="bookticket" onClick={buttonClicked}>{buttonText}</Button>
         </ThemeProvider>
     </CardActions>
     </Card>)
