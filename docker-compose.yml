@@ -12,12 +12,13 @@ services:
       - 3000:3000
     environment:
       - REACT_APP_HOST=localhost
+    networks:
+      - api
   test:
     build: 
       context: .
       dockerfile: dockerfile.test
     container_name: test
-    command: npm run ci:e2e
     ports:
       - 3000:3000
     environment:
