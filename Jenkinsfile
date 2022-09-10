@@ -15,6 +15,7 @@ pipeline{
     stages{
         stage("Build"){   
             steps{
+                 sh "docker system prune -f"
                  sh "docker-compose build web"
                  sh "docker-compose build test"
                  git url: "https://github.com/davidhailu0/mybus-server.git", branch:"master"
