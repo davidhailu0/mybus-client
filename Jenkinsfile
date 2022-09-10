@@ -18,7 +18,6 @@ pipeline{
                  sh "docker-compose build web"
                  sh "docker-compose build test"
                  git url: "https://github.com/davidhailu0/mybus-server.git", branch:"master"
-                 sh "cd mybus-server"
                  sh "docker-compose build server"
             }
         }
@@ -30,6 +29,7 @@ pipeline{
             //     }
             // }
             steps{
+                sh "docker-compose run -d server"
                 sh "docker-compose run test"
             }
         }
