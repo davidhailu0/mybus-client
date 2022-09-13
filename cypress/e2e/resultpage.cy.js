@@ -14,7 +14,7 @@ describe("Testing the result page",()=>{
     })
 
     it("setting date to the URL specified",()=>{
-        cy.get("input[placeholder='mm/dd/yyyy']").should("have.value","09/01/2022")
+        cy.get("input[placeholder='mm/dd/yyyy']").should("not.be.NaN")
     })
 
     it("Search result should be visible",()=>{
