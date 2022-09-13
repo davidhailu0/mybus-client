@@ -28,7 +28,7 @@ pipeline{
             //     }
             // }
             steps{
-                sh "docker-compose run -d server --name localserver"
+                sh "docker-compose run -d --name localserver server"
                 sh "docker-compose run test"
             }
         }
