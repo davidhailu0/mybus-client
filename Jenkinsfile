@@ -17,7 +17,6 @@ pipeline{
             steps{
                  sh "docker system prune -f"
                  sh "docker-compose build web"
-                 sh "docker-compose build server"
                  sh "docker-compose build test"
             }
         }
