@@ -27,3 +27,19 @@ export const getRequest = async(endpoint,token)=>{
         return e.message
     }
 }
+
+export const getRequestIPInfoRequest = async(ip)=>{
+    const API_KEY = "9b3042f61312ef78b3e28fe615d42dac"
+    try{
+        const resp = await axios.get(`http://api.ipstack.com/${ip}?access_key=${API_KEY}`)
+        return resp.data
+    }
+    catch(e){
+        console.log(e.message)
+    }
+}
+
+export const getClientIPAddress = async()=>{
+    const resp = await axios.get(`https://jsonip.com/`)
+    return resp.data
+}

@@ -13,7 +13,11 @@ const customTheme = createTheme({
     }
 }) 
 
-export default function SelectComponent({label,value,setValue,options,placeholder,error}){
+export default function SelectComponent({label,value,setValue,options,placeholder,setError,error}){
+    const changeValue = (val)=>{
+        setValue(val)
+        setError(false)
+    }
     return(<ThemeProvider theme={customTheme}>
         <FormControl sx={{width:{md:"47%",xs:"100%"},"&:hover fieldset":{borderWidth:"3px"},margin:"2rem 0.5rem 1rem"}}>
             <InputLabel id={label}>{label}</InputLabel>
@@ -23,7 +27,7 @@ export default function SelectComponent({label,value,setValue,options,placeholde
             value={value}
             label={label}
             placeholder={placeholder}
-            onChange={setValue}
+            onChange={changeValue}
             error={error}
             sx={{display:"inline-flex",alignContent:"center",alignItems:"center"}}
             >

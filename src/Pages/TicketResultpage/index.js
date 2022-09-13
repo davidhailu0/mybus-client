@@ -16,7 +16,7 @@ export default function TicketResultPage(){
        fetchData()
     },[ticketId])
 
-    return (<Box sx={{height:"100vh",background:"#f5f5f5"}}>
+    return (<Box sx={{height:{md:"100vh",xs:"130vh"},background:"#f5f5f5"}}>
     <Appbar/>
     <Box sx={{textAlign:"center",paddingTop:"3rem"}}>
         {searchResult&&searchResult.data!=="No Ticket Found"?<TicketDetail {...searchResult.data}/>:<Typography variant="h3">There is no trip with this ID</Typography>}

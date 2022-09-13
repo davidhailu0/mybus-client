@@ -3,7 +3,11 @@ import "./searchField.css"
 
 const { Search } = Input;
 
-export default function SearchBar({callBackOnSearch,setSearchValue,error}){
+export default function SearchBar({callBackOnSearch,setSearchValue,setError,error}){
+  const changeValue = (value)=>{
+    setError(false)
+    setSearchValue(value)
+  }
     return (<div style={{textAlign:"center"}}><Search
         placeholder="Enter Your Ticket ID"
         allowClear
@@ -11,8 +15,8 @@ export default function SearchBar({callBackOnSearch,setSearchValue,error}){
         size="large"
         status={error?'error':''}
         onSearch={callBackOnSearch}
-        onChange={(e)=>setSearchValue(e.target.value)}
-        style={{margin:"5rem 0 1rem",width:"50vw"}}
+        onChange={(e)=>changeValue(e.target.value)}
+        style={{margin:"5rem 0 1rem",width:"75vw"}}
         testbutton="search_ticket"
       /></div>);
 }
