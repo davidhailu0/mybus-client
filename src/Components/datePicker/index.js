@@ -16,6 +16,8 @@ const customTheme = createTheme({
 }) 
 
 export default function DepartureDatePicker({value,setDateValue,error}){
+  const tomorrowDate = new Date()
+  tomorrowDate.setDate(tomorrowDate.getDate()+1)
     return (<LocalizationProvider dateAdapter={AdapterMoment}>
         <Box sx={{display:{md:"flex",xs:'none'}}}>
         <ThemeProvider theme={customTheme}>
@@ -24,6 +26,8 @@ export default function DepartureDatePicker({value,setDateValue,error}){
             inputFormat="MM/DD/YYYY"
             value={value}
             disablePast
+            minDate={tomorrowDate}
+            disableHighlightToday
             onChange={(value)=>{
               const date = new Date(value)
               setDateValue(date.getTime())

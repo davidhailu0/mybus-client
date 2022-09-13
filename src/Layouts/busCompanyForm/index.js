@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import { Typography,Box,Button,TextField } from "@mui/material"
 import SelectComponent from "../../Components/selectComponent"
 import { places } from "../passengerForm/places"
@@ -6,6 +6,7 @@ import DateRangePicker from "../../Components/datePickerRange"
 import {postRequest} from '../../utils/request-api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from "sweetalert";
+import { getClientIPAddress,getRequestIPInfoRequest } from "../../utils/request-api"
 
 const customTheme = createTheme({
     palette:{
@@ -24,6 +25,15 @@ export default function BusCompanyForm(){
     const [destinationError,setDestinationError] = useState(false)
     const [ticketPriceError,setTicketPriceError] = useState(false)
     const [departureDateError,setDepartureDateError] = useState("")
+
+    useEffect(()=>{
+        async function fetchIPandLocation(){
+                const ipData = await getClientIPAddress()
+                const ipLocation = await getRequestIPInfoRequest(ipData['ip'])
+                setStaringPlace(ipLocation["region_name"])
+        }
+        fetchIPandLocation()
+    },[])
 
     const submitForm = async(e)=>{
         e.preventDefault()
