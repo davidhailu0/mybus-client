@@ -29,8 +29,7 @@ pipeline{
             //     }
             // }
             steps{
-                sh "docker-compose run -d web"
-                sh "docker-compose run -d server"
+                sh "docker-compose run -d server --name server"
                 sh "docker-compose run test"
             }
         }
