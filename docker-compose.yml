@@ -24,6 +24,7 @@ services:
       - api
   test:
     container_name: mybus_test
+    privileged: true
     build: 
       context: .
       dockerfile: dockerfile.local
