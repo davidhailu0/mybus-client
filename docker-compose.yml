@@ -6,9 +6,6 @@ services:
       context: .
       dockerfile: dockerfile.local
     stdin_open: true
-    volumes:
-      - "./:/mybus_client"
-      - "/mybus_client/node_modules"
     ports:
       - 3000:3000
     environment:

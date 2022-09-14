@@ -4,9 +4,9 @@ RUN mkdir mybus_client
 
 WORKDIR /mybus_client
 
-RUN npm install react-scripts@5.0.1 -g
-
 ENV PATH /mybus_client/node_modules/.bin:$PATH
+
+COPY . ./
 
 COPY ./package.json ./package-lock.json ./
 
