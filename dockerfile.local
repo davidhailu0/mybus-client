@@ -1,6 +1,6 @@
 FROM cypress/base:18.6.0
 
-USER ROOT
+USER root
 
 RUN apt update && apt install -y sudo
 
