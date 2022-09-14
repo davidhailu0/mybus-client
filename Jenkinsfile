@@ -16,7 +16,7 @@ pipeline{
         stage("Build"){   
             steps{
                  sh "docker system prune -f"
-                 sh "docker-compose build web"
+                 sh "docker-compose build web_app"
                  sh "docker-compose build test"
             }
         }
