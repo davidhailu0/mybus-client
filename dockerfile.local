@@ -1,5 +1,11 @@
 FROM cypress/base:18.6.0
 
+USER ROOT
+
+RUN apt update && apt install -y sudo
+
+RUN sudo npm install npm@latest cypress -g
+
 RUN mkdir mybus_client
 
 WORKDIR /mybus_client
