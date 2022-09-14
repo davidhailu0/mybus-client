@@ -37,7 +37,7 @@ services:
       - "/mybus_client/node_modules"
     networks:
       - api
-    command: npm run ci:e2e
+    command: npm test
 networks:
   api: 
     driver: bridge
