@@ -1,17 +1,19 @@
 version: "3.7"
 services:
-  web:
-    container_name: web
-    build: ./
+  dev:
+    container_name: mybus_dev
+    build: 
+      context: .
+      dockerfile: dockerfile.local
     stdin_open: true
-    # depends_on:
-    #   - serviceName
     volumes:
-      - "/node_modules/.bin:/client/node_modules/.bin"
+      - "./:/mybus_client"
+      - "/mybus_client/node_modules"
     ports:
       - 3000:3000
     environment:
       - REACT_APP_HOST=server
+      - NODE_ENV=development
     networks:
       - api
   server:
@@ -24,15 +26,19 @@ services:
     networks:
       - api
   test:
+    container_name: mybus_test
     build: 
       context: .
-      dockerfile: dockerfile.test
-    container_name: test
-    ports:
-      - 3000:3000
+      dockerfile: dockerfile.local
     environment:
       - REACT_APP_HOST=localserver
+    depends_on:
+      - server
+    volumes:
+      - "./:/mybus_client"
+      - "/mybus_client/node_modules"
     networks:
       - api
+    command: npm run ci:e2e
 networks:
   api: {}

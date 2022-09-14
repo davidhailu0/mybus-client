@@ -1,7 +1,7 @@
 pipeline{
    agent {
         docker{
-                image "davidhailu0/dockercomposedebian"
+                image "davidhailu0/dockeralpine:v1"
                 args "-v /var/run/docker.sock:/var/run/docker.sock -u root"
             }
         }
@@ -29,7 +29,6 @@ pipeline{
             // }
             steps{
                 sh "docker rm -f localserver"
-                sh "docker-compose run -d --name localserver server"
                 sh "docker-compose run test"
             }
         }
