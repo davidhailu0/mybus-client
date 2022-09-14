@@ -32,10 +32,9 @@ services:
       - REACT_APP_HOST=localserver
     depends_on:
       - server
-      - web_app
     networks:
       - api
-    command: npm test
+    command: npm run ci:e2e
 networks:
   api: 
     driver: bridge
