@@ -4,8 +4,6 @@ RUN mkdir mybus_client
 
 WORKDIR /mybus_client
 
-ENV PATH /mybus_client/node_modules/.bin:$PATH
-
 COPY . ./
 
 COPY ./package.json ./package-lock.json ./
