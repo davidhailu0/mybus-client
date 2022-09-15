@@ -19,8 +19,9 @@ describe("Testing the Homepage",()=>{
 
     it("select place from destination drop down",()=>{
         cy.get("div[aria-labelledby='Destination Destination_id']").click()
-        cy.get('li[data-value="Bahir Dar"]').click()
-        cy.get("div[aria-labelledby='Destination Destination_id']>div>div").should("have.text","Bahir Dar")
+        cy.get('li[data-value="Bahir Dar"]').click().then(()=>{
+            cy.get("div[aria-labelledby='Destination Destination_id']>div>div").should("have.text","Bahir Dar")
+        })
     })
 
     it("Navigates to Homepage on For Passengers button clicked",()=>{
@@ -29,7 +30,7 @@ describe("Testing the Homepage",()=>{
         })
     })
 
-    it("navigates to Homepage on For Passengers button clicked",()=>{
+    it("Navigates to Homepage on For Passengers button clicked",()=>{
         cy.get(`.For_Passengers`).should("be.visible").click().then(()=>{
             cy.url().should("eq","http://localhost:3000/")
         })
@@ -49,22 +50,29 @@ describe("Testing the Homepage",()=>{
         cy.get(".ant-input-search-button").should("be.visible")
     })
 
-    it("enter date to the date picker",()=>{
-        cy.get("input[placeholder='mm/dd/yyyy']").type("08/13/1999{enter}").should("have.value","08/13/1999")
+    it("date should have default value",()=>{
+        // cy.get("input[placeholder='mm/dd/yyyy']").type("08/13/1999{enter}").should("have.value","08/13/1999")
+        const tomorrowDate = new Date()
+        tomorrowDate.setDate(tomorrowDate.getDate()+1)
+        cy.get(`button>p`).contains(tomorrowDate.getUTCDate().toString()).click()
+        const tomorrowDateFormatted = tomorrowDate.getUTCDate().toString().length==2?tomorrowDate.getUTCDate().toString():`0${tomorrowDate.getUTCDate().toString()}`
+        const tomorrowMonthFormatted = (tomorrowDate.getUTCMonth()+1).toString().length==2?(tomorrowDate.getUTCMonth()+1).toString():`0${(tomorrowDate.getUTCMonth()+1).toString()}`
+        cy.get("input[placeholder='mm/dd/yyyy']").should("have.value",`${tomorrowMonthFormatted}/${tomorrowDateFormatted}/${tomorrowDate.getUTCFullYear()}`)
     })
 
     it("pick date from the available dates",()=>{
         cy.get(`svg[data-testid="CalendarIcon"]`).parent().click()
-        cy.get("button[role='gridcell'][aria-current='date']").click()
+        cy.get("button[role='gridcell'][aria-selected='true']").click()
         cy.get("input[placeholder='mm/dd/yyyy']").should("not.be.null")
     })
 
     it("pick date from the available buttons",()=>{
-        const todayDate = new Date()
-        cy.get(`button>p`).contains(todayDate.getUTCDate().toString()).click()
-        const todayDateFormatted = todayDate.getUTCDate().toString().length==2?todayDate.getUTCDate().toString():`0${todayDate.getUTCDate().toString()}`
-        const todayMonthFormatted = (todayDate.getUTCMonth()+1).toString().length==2?(todayDate.getUTCMonth()+1).toString():`0${(todayDate.getUTCMonth()+1).toString()}`
-        cy.get("input[placeholder='mm/dd/yyyy']").should("have.value",`${todayMonthFormatted}/${todayDateFormatted}/${todayDate.getUTCFullYear()}`)
+        const tomorrowDate = new Date()
+        tomorrowDate.setDate(tomorrowDate.getDate()+1)
+        cy.get(`button>p`).contains(tomorrowDate.getUTCDate().toString()).click()
+        const tomorrowDateFormatted = tomorrowDate.getUTCDate().toString().length==2?tomorrowDate.getUTCDate().toString():`0${tomorrowDate.getUTCDate().toString()}`
+        const tomorrowMonthFormatted = (tomorrowDate.getUTCMonth()+1).toString().length==2?(tomorrowDate.getUTCMonth()+1).toString():`0${(tomorrowDate.getUTCMonth()+1).toString()}`
+        cy.get("input[placeholder='mm/dd/yyyy']").should("have.value",`${tomorrowMonthFormatted}/${tomorrowDateFormatted}/${tomorrowDate.getUTCFullYear()}`)
     })
 
     it("navigates to Bus Page",()=>{
@@ -79,7 +87,7 @@ describe("Testing the Homepage",()=>{
         cy.get("div[aria-labelledby='Destination Destination_id']").click()
         cy.get('li[data-value="Bahir Dar"]').click()
         cy.get(`svg[data-testid="CalendarIcon"]`).parent().click()
-        cy.get("button[role='gridcell'][aria-current='date']").click()
+        cy.get("button[role='gridcell'][aria-selected='true']").click()
         cy.get(`button[testbutton="search_button"]`).should("be.visible").click()
         cy.url().should("include","starting_place=Addis%20Ababa&destination=Bahir%20Dar")
     })
