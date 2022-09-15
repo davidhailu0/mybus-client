@@ -82,13 +82,15 @@ describe("Testing the Homepage",()=>{
     })
 
     it("search for available trips",()=>{
-        cy.get("div[aria-labelledby='Leaving From Leaving From_id']").click()
-        cy.get(`li[data-value="Addis Ababa"]`).click()
-        cy.get("div[aria-labelledby='Destination Destination_id']").click()
-        cy.get('li[data-value="Bahir Dar"]').click()
-        cy.get(`svg[data-testid="CalendarIcon"]`).parent().click()
-        cy.get("button[role='gridcell'][aria-selected='true']").click()
-        cy.get(`button[testbutton="search_button"]`).should("be.visible").click()
-        cy.url().should("include","starting_place=Addis%20Ababa&destination=Bahir%20Dar")
+        cy.wait(3000).then(()=>{
+            cy.get("div[aria-labelledby='Leaving From Leaving From_id']").click()
+            cy.get(`li[data-value="Addis Ababa"]`).click()
+            cy.get("div[aria-labelledby='Destination Destination_id']").click()
+            cy.get('li[data-value="Bahir Dar"]').click()
+            cy.get(`svg[data-testid="CalendarIcon"]`).parent().click()
+            cy.get("button[role='gridcell'][aria-selected='true']").click()
+            cy.get(`button[testbutton="search_button"]`).should("be.visible").click()
+            cy.url().should("include","starting_place=Addis%20Ababa&destination=Bahir%20Dar")
+        })
     })
 })

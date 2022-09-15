@@ -31,24 +31,25 @@ describe("Testing the bus company page",()=>{
 
     it("pick the current date",()=>{
         cy.get(`.rangePicker_class`).click()
-        const todayDate = new Date()
-        const todayDayaddedZero = todayDate.getUTCDate().toString().length===2?todayDate.getUTCDate():`0${todayDate.getUTCDate()}`
-        const todayMonthAddedZero = (todayDate.getUTCMonth()+1).toString().length===2?todayDate.getUTCMonth()+1:`0${(todayDate.getUTCMonth()+1)}`
-        const todayDateFormatted = `${todayDate.getFullYear()}-${todayMonthAddedZero}-${todayDayaddedZero}`
         const tomorrowDate = new Date()
-        tomorrowDate.setDate(todayDate.getDate()+1)
-        const tomorrowDayAddedZero = tomorrowDate.getUTCDate().toString().length===2?tomorrowDate.getUTCDate():`0${tomorrowDate.getUTCDate()}`
+        tomorrowDate.setDate(tomorrowDate.getDate()+1)
+        const tomorrowDayaddedZero = tomorrowDate.getUTCDate().toString().length===2?tomorrowDate.getUTCDate():`0${tomorrowDate.getUTCDate()}`
         const tomorrowMonthAddedZero = (tomorrowDate.getUTCMonth()+1).toString().length===2?tomorrowDate.getUTCMonth()+1:`0${(tomorrowDate.getUTCMonth()+1)}`
-        const tomorrowDateFormatted = `${tomorrowDate.getFullYear()}-${tomorrowMonthAddedZero}-${tomorrowDayAddedZero}`
-        cy.get(`td[title="${todayDateFormatted}"]`).click()
+        const tomorrowDateFormatted = `${tomorrowDate.getFullYear()}-${tomorrowMonthAddedZero}-${tomorrowDayaddedZero}`
+        const afterTomorrowDate = new Date()
+        afterTomorrowDate.setDate(tomorrowDate.getDate()+1)
+        const afterTomorrowDayAddedZero = afterTomorrowDate.getUTCDate().toString().length===2?afterTomorrowDate.getUTCDate():`0${afterTomorrowDate.getUTCDate()}`
+        const afterTomorrowMonthAddedZero = (afterTomorrowDate.getUTCMonth()+1).toString().length===2?afterTomorrowDate.getUTCMonth()+1:`0${(afterTomorrowDate.getUTCMonth()+1)}`
+        const afterTomorrowDateFormatted = `${afterTomorrowDate.getFullYear()}-${afterTomorrowMonthAddedZero}-${afterTomorrowDayAddedZero}`
         cy.get(`td[title="${tomorrowDateFormatted}"]`).click()
+        cy.get(`td[title="${afterTomorrowDateFormatted}"]`).click()
     })
 
     it("enter the ticket price",()=>{
-        cy.get(`input[type="number"]`).click().type("700")
-        cy.get("body").click()
-        cy.get(`input[type="number"]`).should("have.value","700")
-        cy.get(`input[type="number"]`).click().type("{uparrow}{uparrow}").should("have.value","702")
+        cy.get(`div>input[type="number"]`).click().type("700")
+        cy.contains("Add Trips").click()
+        cy.get(`div>input[type="number"]`).should("have.value","700")
+        cy.get(`div>input[type="number"]`).click().type("{uparrow}{uparrow}").should("have.value","702")
     })    
 
     it("add trip to the database",()=>{
