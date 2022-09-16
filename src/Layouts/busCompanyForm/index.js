@@ -35,12 +35,10 @@ export default function BusCompanyForm(){
     }
     useEffect(()=>{
         async function fetchCoordsandLocation(){
-            if(!starting_place){
                 await getClientCoordinates(onSuccess)
-            }
         }
         fetchCoordsandLocation()
-    },[starting_place])
+    },[])
 
     const submitForm = async(e)=>{
         e.preventDefault()
