@@ -34,10 +34,7 @@ export default function BusCompanyForm(){
         setStaringPlace(city)
     }
     useEffect(()=>{
-        async function fetchCoordsandLocation(){
-                await getClientCoordinates(onSuccess)
-        }
-        fetchCoordsandLocation()
+        getClientCoordinates(onSuccess)
     },[])
 
     const submitForm = async(e)=>{
@@ -46,7 +43,7 @@ export default function BusCompanyForm(){
             try{
                 await postRequest("/trip/addTrip",{
                     starting_place:startingPlace,
-                    destination,price:ticketPrice,dateFrom:departureDateValue[0],dateUpto:departureDateValue[1]
+                    destination,price:parseInt(ticketPrice),dateFrom:departureDateValue[0],dateUpto:departureDateValue[1]
                 },null)
                 swal("Success!", "Your Trip has been added!", "success");
             }
@@ -73,14 +70,14 @@ export default function BusCompanyForm(){
         setTicketPriceError(false)
     }
     
-    return <Box component={'form'} sx={{width:"70%",margin:"2rem auto"}}>
+    return <Box component={'form'} sx={{width:"80%",margin:"2rem auto"}}>
         <Typography textAlign={"center"} variant="h3" marginBottom={"1rem"}>Add Trips</Typography>
-        <Box sx={{display:startingPlace&&!destination?"block":"flex",justifyContent:"space-evenly"}}>
-        {startingPlace&&<img style={{margin:"0 2.5rem"}} src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"295"} alt={startingPlace} />}
-        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img style={{margin:"0 .7rem"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
-        </Box>
+        <Box sx={{display:{md:"flex",xs:"block"},justifyContent:{md:"space-evenly",xs:"center"},textAlign:"center"}}>
+        {startingPlace&&<Box sx={{paddingRight:{md:destination?"0":"25%"}}}><img src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"225"} alt={startingPlace} style={{marginRight:"0"}}/></Box>}
+        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"225"} alt={destination} />}</Box>
+     </Box>
         <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStaringPlace(e.target.value)} setError={setStartingPlaceError} options={places} error={starting_placeError}/>
-            <Box sx={{display:{md:"none",xs:"block",textAlign:"center"}}}>{destination&&<img style={{margin:"0 .7rem"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
+            <Box sx={{display:{md:"none",xs:"block",textAlign:"center"}}}>{destination&&<img style={{margin:"0 .7rem"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"225"} alt={destination} />}</Box>
         <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestination(e.target.value)} options={places} error={destinationError} setError={setDestinationError}/>
         <DateRangePicker handleChange={handleChange} error={departureDateError}/>
         <ThemeProvider theme={customTheme}>

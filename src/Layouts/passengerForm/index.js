@@ -77,17 +77,17 @@ export default function PassengerForm({starting_place,destination_place,date,add
         setActiveButton(ind)
     }
     
-    return <Box component={'form'} sx={{width:"50%",margin:"1rem auto 0",paddingBottom:"0rem",zIndex:"0",background:"#f5f5f5"}}>
+    return <Box component={'form'} sx={{width:"80%",margin:"1rem auto 0",paddingBottom:"0rem",zIndex:"0",background:"#f5f5f5"}}>
      <Typography textAlign={"center"} variant="h3" sx={{marginBottom:"1rem",fontSize:{md:"3rem",xs:"2rem"}}}>Search for Trips</Typography>
-     <Box sx={{display:"block"}}>
-        {startingPlace&&<img style={{margin:"0 1rem"}} src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"295"} alt={startingPlace} />}
-        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img style={{marginLeft:addMargin?"1rem":"0"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
+     <Box sx={{display:{md:"flex",xs:"block"},justifyContent:{md:"space-evenly",xs:"center"},textAlign:"center"}}>
+        {startingPlace&&<Box sx={{paddingRight:{md:destination?"0":"25%"}}}><img src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"225"} alt={startingPlace}/></Box>}
+        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img style={{marginLeft:addMargin?"1rem":"0"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"225"} alt={destination} />}</Box>
      </Box>
      <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlaceValue(e.target.value)} options={places} setError={setStartingPlaceError} error={starting_placeError}/>
-     <Box sx={{display:{md:"none",xs:"inline"}}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
+     <Box sx={{display:{md:"none",xs:"block"},textAlign:"center"}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"250"} alt={destination} />}</Box>
      <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestinationPlaceValue(e.target.value)} options={places} setError={setDestinationError} error={destinationError}/>
      <DepartureDatePicker value={departureDateValue} setDateValue={setDepartureDate} error={departureDateError}/>
-     <Box sx={{display:"flex",justifyContent:"center",mb:"2rem"}}>
+     <Box sx={{display:{md:"flex",xs:"none"},justifyContent:"center",mb:"2rem"}}>
      {getCardsOfTheWeek(departureDateButtons)}
      </Box>
      <Button variant="contained" testbutton={"search_button"} onClick={submitForm} sx={{backgroundColor:"#10c9a7",display:"block",margin:"1rem auto",textAlign:"center",":hover":{backgroundColor:"black"}}}>

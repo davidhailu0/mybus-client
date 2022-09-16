@@ -19,14 +19,14 @@ export default function ResultCard({starting_place,destination,date,price}){
     swal("Purchased!", `Your TicketId is ${respData.data._id}`, "success");
     setButtonText("Booked")
   }
-    return (<Card sx={{width:{md:"45vw",xs:"90vw"},m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">
-        <CardContent sx={{display:"grid",justifyItems:'flex-start',pl:"3.5rem"}}>
+    return (<Card sx={{width:{md:"45vw",xs:"80vw"},m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">
+        <CardContent sx={{display:"grid",justifyItems:'flex-start',pl:{md:"3.5rem",xs:"1rem"}}}>
           <Box sx={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-            <Typography sx={{ fontWeight:"bold",display:"flex",width:{md:"20%",xs:"30%"}}}>
+            <Typography sx={{ fontWeight:"bold",display:"flex",fontSize:{xs:"1rem"},width:{md:"25%",xs:"33vw"}}}>
           {starting_place}
         </Typography>
-        <Box sx={{height:"5px",width:"70%",background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
-      <Typography sx={{ fontWeight:"bold",display:"inline-flex",width:{md:"20%",xs:"30%"}}}>{destination}</Typography>
+        <Box sx={{height:"5px",width:{md:"70%",xs:"20%"},background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
+      <Typography sx={{ fontWeight:"bold",display:"inline-flex",fontSize:{xs:"1rem"},width:{md:"25%",xs:"33vw"}}}>{destination}</Typography>
           </Box>
      <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
      <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Price: {price} birr</Typography>
