@@ -46,13 +46,13 @@ describe("Testing the bus company page",()=>{
     })
 
     it("enter the ticket price",()=>{
-        cy.get(`div>input[type="number"]`).click().type("700")
+        cy.get(`input[type="number"]`).click().type("700")
         cy.contains("Add Trips").click()
-        cy.get(`div>input[type="number"]`).should("have.value","700")
-        cy.get(`div>input[type="number"]`).click().type("{uparrow}{uparrow}").should("have.value","702")
+        cy.get(`input[type="number"]`).should("have.value","700")
+        cy.get(`input[type="number"]`).click().type("{uparrow}{uparrow}").should("have.value","702")
     })    
 
-    it("add trip to the database",()=>{
+    it("add trip button should be visible",()=>{
         cy.get(`[testbutton="addtrip"]`).should("be.visible")
     })
 })

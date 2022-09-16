@@ -6,7 +6,7 @@ import DateRangePicker from "../../Components/datePickerRange"
 import {postRequest} from '../../utils/request-api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from "sweetalert";
-import { getClientIPAddress,getRequestIPInfoRequest } from "../../utils/request-api"
+import { getClientCoordinates,getClientCityFromCoordinates} from "../../utils/request-api"
 
 const customTheme = createTheme({
     palette:{
@@ -27,12 +27,13 @@ export default function BusCompanyForm(){
     const [departureDateError,setDepartureDateError] = useState("")
 
     useEffect(()=>{
-        async function fetchIPandLocation(){
-                const ipData = await getClientIPAddress()
-                const ipLocation = await getRequestIPInfoRequest(ipData['ip'])
-                setStaringPlace(ipLocation["region_name"])
+        async function fetchCoordsandLocation(){
+                const locCoords= await getClientCoordinates()
+                const location = await getClientCityFromCoordinates(locCoords.latitude,locCoords.longitude)
+                console.log(location)
+                setStaringPlace("")
         }
-        fetchIPandLocation()
+        fetchCoordsandLocation()
     },[])
 
     const submitForm = async(e)=>{

@@ -20,11 +20,11 @@ export default function ResultPage(){
 
     return (<Box sx={{height:{md:"100vh",xs:"155vh"},background:"#f5f5f5"}}>
         <Appbar/>
-        <Box sx={{display:{md:"flex",xs:"grid",position:{md:"fixed",xs:"relative"},top:"3rem",right:"0.5rem",left:"0.5rem",bottom:"1rem"}}}>
-            <PassengerForm starting_place={searchParams.get("starting_place")} destination_place={searchParams.get("destination")} date={searchParams.get("date")}/>
-            <Box sx={{overflowY:"scroll",mt:"2rem",textAlign:"center",width:{md:"50vw",xs:"100vw"},background:"white",borderRadius:"25px"}}>
+        <Box sx={{display:{md:"flex",xs:"grid",position:{md:"fixed",xs:"relative"},top:"3rem",right:"0.5rem",left:"0.5rem",bottom:"1rem",background:"#f5f5f5"}}}>
+            <PassengerForm addMargin={false} starting_place={searchParams.get("starting_place")} destination_place={searchParams.get("destination")} date={searchParams.get("date")}/>
+            <Box sx={{overflowY:"auto",mt:"5rem",height:"80vh",textAlign:"center",width:{md:"50vw",xs:"100vw"},background:"white",borderRadius:"25px"}}>
                 <Typography variant="h3">Search Result</Typography>
-                {routeData.length===0?<Typography variant="h4" sx={{marginTop:"15rem",height:"100%"}}>No Trips Found</Typography> :routeData.map((routeObj,ind)=><ResultCard key={ind} {...routeObj} date={searchParams.get("date")}/>)}
+                {routeData.length===0?<Typography variant="h4" sx={{marginTop:"15rem",height:"25vh"}}>No Trips Found</Typography> :routeData.map((routeObj,ind)=><ResultCard key={ind} {...routeObj} date={searchParams.get("date")}/>)}
             </Box>
         </Box>
     </Box>)

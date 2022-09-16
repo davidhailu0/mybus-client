@@ -18,9 +18,9 @@ export default function Homepage(){
             setSearchBarError(true)
        }
     }
-    return (<Box sx={{background:"#f5f5f5",height:{md:"110vh",xs:"170vh"}}}>
+    return (<Box sx={{background:"#f5f5f5",height:{md:"150vh",xs:"170vh"}}}>
         <ResponsiveAppBar/>
           <SearchBar callBackOnSearch={searchForTicket} setSearchValue={setSearchValue} setError={setSearchBarError} error={searchBarError}/>
-        <PassengerForm/>
+        <PassengerForm addMargin={true}/>
     </Box>)
 }

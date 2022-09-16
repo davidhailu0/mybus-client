@@ -28,18 +28,28 @@ export const getRequest = async(endpoint,token)=>{
     }
 }
 
-export const getRequestIPInfoRequest = async(ip)=>{
-    const API_KEY = "9b3042f61312ef78b3e28fe615d42dac"
-    try{
-        const resp = await axios.get(`http://api.ipstack.com/${ip}?access_key=${API_KEY}`)
-        return resp.data
-    }
-    catch(e){
-        console.log(e.message)
+const failure = ()=>{
+    console.warn("Getting the Location Coordinates Failed")
+    return "";
+}
+
+export const getClientCoordinates = async(success)=>{
+    let coordinates = ""
+    if(navigator.geolocation){
+        const result = await navigator.permissions.query({name:"geolocation"})
+        if(result.state === "granted"){
+            navigator.geolocation.getCurrentPosition(success)
+            return coordinates
+        }
+        else if(result.state === "prompt"){
+            navigator.geolocation.getCurrentPosition(success,failure)
+            return coordinates
+        }
+        return ""
     }
 }
 
-export const getClientIPAddress = async()=>{
-    const resp = await axios.get(`https://jsonip.com/`)
+export const getClientCityFromCoordinates = async(lat,long)=>{
+    const resp = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     return resp.data
 }

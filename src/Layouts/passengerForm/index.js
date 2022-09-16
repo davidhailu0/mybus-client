@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-dom"
 import { places } from "./places"
 import DepartureDatePicker from "../../Components/datePicker"
 import CustomButton from "../../Components/Button"
-import { getClientIPAddress,getRequestIPInfoRequest } from "../../utils/request-api"
+import { getClientCoordinates, getClientCityFromCoordinates } from "../../utils/request-api"
 
 
-export default function PassengerForm({starting_place,destination_place,date}){
+export default function PassengerForm({starting_place,destination_place,date,addMargin}){
     const tomorrowDate = new Date();
     tomorrowDate.setDate(tomorrowDate.getDate()+1)
     const [startingPlace,setStaringPlace] = useState(starting_place||"")
@@ -20,15 +20,20 @@ export default function PassengerForm({starting_place,destination_place,date}){
     const [activeButton,setActiveButton] = useState(0)
     const departureDateButtons = [];
     const navigate = useNavigate()
+    const onSuccess = async(pos)=>{
+        const {latitude,longitude} = pos.coords
+        const location = await getClientCityFromCoordinates(latitude,longitude)
+        let city = location["city"]?location["city"].replaceAll("City",""):location["locality"]
+        city = city.includes(",")?city.substring(0,city.indexOf(",")):city
+        setStaringPlace(city)
+    }
     useEffect(()=>{
-        async function fetchIPandLocation(){
+        async function fetchCoordsandLocation(){
             if(!starting_place){
-                const ipData = await getClientIPAddress()
-                const ipLocation = await getRequestIPInfoRequest(ipData['ip'])
-                setStaringPlace(ipLocation["region_name"])
+                await getClientCoordinates(onSuccess)
             }
         }
-        fetchIPandLocation()
+        fetchCoordsandLocation()
     },[starting_place])
 
     const submitForm = (e)=>{
@@ -72,11 +77,11 @@ export default function PassengerForm({starting_place,destination_place,date}){
         setActiveButton(ind)
     }
     
-    return <Box component={'form'} sx={{width:"50%",margin:"3rem auto"}}>
+    return <Box component={'form'} sx={{width:"50%",margin:"1rem auto 0",paddingBottom:"0rem",zIndex:"0",background:"#f5f5f5"}}>
      <Typography textAlign={"center"} variant="h3" sx={{marginBottom:"1rem",fontSize:{md:"3rem",xs:"2rem"}}}>Search for Trips</Typography>
      <Box sx={{display:"block"}}>
         {startingPlace&&<img style={{margin:"0 1rem"}} src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"295"} alt={startingPlace} />}
-        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img style={{marginLeft:"2.5rem"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
+        <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img style={{marginLeft:addMargin?"1rem":"0"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
      </Box>
      <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlaceValue(e.target.value)} options={places} setError={setStartingPlaceError} error={starting_placeError}/>
      <Box sx={{display:{md:"none",xs:"inline"}}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"295"} alt={destination} />}</Box>
@@ -85,7 +90,7 @@ export default function PassengerForm({starting_place,destination_place,date}){
      <Box sx={{display:"flex",justifyContent:"center",mb:"2rem"}}>
      {getCardsOfTheWeek(departureDateButtons)}
      </Box>
-     <Button variant="contained" testbutton={"search_button"} onClick={submitForm} sx={{backgroundColor:"#10c9a7",display:"block",margin:"2rem auto",textAlign:"center",":hover":{backgroundColor:"black"}}}>
+     <Button variant="contained" testbutton={"search_button"} onClick={submitForm} sx={{backgroundColor:"#10c9a7",display:"block",margin:"1rem auto",textAlign:"center",":hover":{backgroundColor:"black"}}}>
         Search
      </Button>
      </Box>
