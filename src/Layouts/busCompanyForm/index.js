@@ -26,15 +26,21 @@ export default function BusCompanyForm(){
     const [ticketPriceError,setTicketPriceError] = useState(false)
     const [departureDateError,setDepartureDateError] = useState("")
 
+    const onSuccess = async(pos)=>{
+        const {latitude,longitude} = pos.coords
+        const location = await getClientCityFromCoordinates(latitude,longitude)
+        let city = location["city"]?location["city"].replaceAll("City",""):location["locality"]
+        city = city.includes(",")?city.substring(0,city.indexOf(",")):city
+        setStaringPlace(city)
+    }
     useEffect(()=>{
         async function fetchCoordsandLocation(){
-                const locCoords= await getClientCoordinates()
-                const location = await getClientCityFromCoordinates(locCoords.latitude,locCoords.longitude)
-                console.log(location)
-                setStaringPlace("")
+            if(!starting_place){
+                await getClientCoordinates(onSuccess)
+            }
         }
         fetchCoordsandLocation()
-    },[])
+    },[starting_place])
 
     const submitForm = async(e)=>{
         e.preventDefault()
