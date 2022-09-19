@@ -53,3 +53,15 @@ export const getClientCityFromCoordinates = async(lat,long)=>{
     const resp = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
     return resp.data
 }
+
+const getClientIPv4 = async()=>{
+    const ipData = await axios.get("http://jsonip.com")
+    return ipData.data["ip"]
+}
+
+export const getClientIpLocation = async()=>{
+    const API_KEY = "VCZ6ZJqQqmUDYc8nyvf1ZAxqv1r6SGYX";
+    const ipAddress = await getClientIPv4()
+    const getLocationData = await axios.get(`https://api.apilayer.com/ip_to_location/${ipAddress}`,{headers:{"apikey":`${API_KEY}`}})
+    return getLocationData.data["city"]
+}

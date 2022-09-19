@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { places } from "./places"
 import DepartureDatePicker from "../../Components/datePicker"
 import CustomButton from "../../Components/Button"
-import { getClientCoordinates, getClientCityFromCoordinates } from "../../utils/request-api"
+import { getClientCoordinates, getClientCityFromCoordinates,getClientIpLocation } from "../../utils/request-api"
 
 
 export default function PassengerForm({starting_place,destination_place,date,addMargin}){
@@ -30,7 +30,9 @@ export default function PassengerForm({starting_place,destination_place,date,add
     useEffect(()=>{
         async function fetchCoordsandLocation(){
             if(!starting_place){
-                await getClientCoordinates(onSuccess)
+                // await getClientCoordinates(onSuccess)
+                const city = await getClientIpLocation()
+                setStaringPlace(city)
             }
         }
         fetchCoordsandLocation()
