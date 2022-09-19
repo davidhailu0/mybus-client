@@ -60,8 +60,8 @@ const getClientIPv4 = async()=>{
 }
 
 export const getClientIpLocation = async()=>{
-    const API_KEY = "VCZ6ZJqQqmUDYc8nyvf1ZAxqv1r6SGYX";
+    const API_KEY = "Bearer 3785|HeGlqnpxwgnwSVhjy1NIvF2EHoSCbkqmCMShEaLE";
     const ipAddress = await getClientIPv4()
-    const getLocationData = await axios.get(`https://api.apilayer.com/ip_to_location/${ipAddress}`,{headers:{"apikey":`${API_KEY}`}})
+    const getLocationData = await axios.get(`https://ipxapi.com/api/ip?ip=${ipAddress}`,{headers:{"Authorization":`${API_KEY}`,"Accept": "application/json"}})
     return getLocationData.data["city"]
 }

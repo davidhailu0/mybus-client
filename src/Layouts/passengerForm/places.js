@@ -53,7 +53,7 @@ export const places = [
     {name:"Agaro",image:agaro},
     {name:"Alamata",image:alamata},
     {name:"Arba Minch",image:arbaMinch},
-    {name:"Assosa",image:assosa},
+    {name:"Asosa",image:assosa},
     {name:"Bahir Dar",image:bahirDar},
     {name:"Bedele",image:bedele},
     {name:"Bichena",image:bichena},

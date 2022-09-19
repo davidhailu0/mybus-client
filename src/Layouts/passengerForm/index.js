@@ -23,16 +23,14 @@ export default function PassengerForm({starting_place,destination_place,date,add
     const onSuccess = async(pos)=>{
         const {latitude,longitude} = pos.coords
         const location = await getClientCityFromCoordinates(latitude,longitude)
-        let city = location["city"]?location["city"].replaceAll("City",""):location["locality"]
+        let city = location["city"]?location["city"].replaceAll("City","").replaceAll("Zone",""):location["locality"]
         city = city.includes(",")?city.substring(0,city.indexOf(",")):city
         setStaringPlace(city)
     }
     useEffect(()=>{
         async function fetchCoordsandLocation(){
             if(!starting_place){
-                // await getClientCoordinates(onSuccess)
-                const city = await getClientIpLocation()
-                setStaringPlace(city)
+                await getClientCoordinates(onSuccess)
             }
         }
         fetchCoordsandLocation()
