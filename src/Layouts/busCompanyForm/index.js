@@ -6,7 +6,7 @@ import DateRangePicker from "../../Components/datePickerRange"
 import {postRequest} from '../../utils/request-api'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import swal from "sweetalert";
-import { getClientCoordinates,getClientCityFromCoordinates} from "../../utils/request-api"
+import { getClientIpLocation} from "../../utils/request-api"
 
 const customTheme = createTheme({
     palette:{
@@ -17,7 +17,7 @@ const customTheme = createTheme({
 }) 
 
 export default function BusCompanyForm(){
-    const [startingPlace,setStaringPlace] = useState("")
+    const [startingPlace,setStartingPlace] = useState("")
     const [destination,setDestination] = useState("")
     const [ticketPrice,setTicketPrice] = useState("")
     const [departureDateValue,setDepartureDate] = useState("")
@@ -26,15 +26,15 @@ export default function BusCompanyForm(){
     const [ticketPriceError,setTicketPriceError] = useState(false)
     const [departureDateError,setDepartureDateError] = useState("")
 
-    const onSuccess = async(pos)=>{
-        const {latitude,longitude} = pos.coords
-        const location = await getClientCityFromCoordinates(latitude,longitude)
-        let city = location["city"]?location["city"].replaceAll("City",""):location["locality"]
-        city = city.includes(",")?city.substring(0,city.indexOf(",")):city
-        setStaringPlace(city)
-    }
     useEffect(()=>{
-        getClientCoordinates(onSuccess)
+        async function fetchCity(){
+                const city = await getClientIpLocation()
+                const thereIs = places.find(plc=>plc.name===city)
+                if(thereIs){
+                    setStartingPlace(city)
+                }
+        }
+        fetchCity()
     },[])
 
     const submitForm = async(e)=>{
@@ -76,7 +76,7 @@ export default function BusCompanyForm(){
         {startingPlace&&<Box sx={{paddingRight:{md:destination?"0":"25%"}}}><img src={places.find((plc)=>plc.name===startingPlace).image} height="200" width={"225"} alt={startingPlace} style={{marginRight:"0"}}/></Box>}
         <Box sx={{display:{md:"inline",xs:"none"}}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"225"} alt={destination} />}</Box>
      </Box>
-        <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStaringPlace(e.target.value)} setError={setStartingPlaceError} options={places} error={starting_placeError}/>
+        <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlace(e.target.value)} setError={setStartingPlaceError} options={places} error={starting_placeError}/>
             <Box sx={{display:{md:"none",xs:"block",textAlign:"center"}}}>{destination&&<img style={{margin:"0 .7rem"}} src={places.find((plc)=>plc.name===destination).image} height="200" width={"225"} alt={destination} />}</Box>
         <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestination(e.target.value)} options={places} error={destinationError} setError={setDestinationError}/>
         <DateRangePicker handleChange={handleChange} error={departureDateError}/>

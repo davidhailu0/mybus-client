@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom"
 import { places } from "./places"
 import DepartureDatePicker from "../../Components/datePicker"
 import CustomButton from "../../Components/Button"
-import { getClientCoordinates, getClientCityFromCoordinates,getClientIpLocation } from "../../utils/request-api"
+import { getClientIpLocation } from "../../utils/request-api"
 
 
 export default function PassengerForm({starting_place,destination_place,date,addMargin}){
     const tomorrowDate = new Date();
     tomorrowDate.setDate(tomorrowDate.getDate()+1)
-    const [startingPlace,setStaringPlace] = useState(starting_place||"")
+    const [startingPlace,setStartingPlace] = useState(starting_place||"")
     const [starting_placeError,setStartingPlaceError] = useState(false)
     const [destination,setDestination] = useState(destination_place||"")
     const [destinationError,setDestinationError] = useState(false)
@@ -20,17 +20,15 @@ export default function PassengerForm({starting_place,destination_place,date,add
     const [activeButton,setActiveButton] = useState(0)
     const departureDateButtons = [];
     const navigate = useNavigate()
-    const onSuccess = async(pos)=>{
-        const {latitude,longitude} = pos.coords
-        const location = await getClientCityFromCoordinates(latitude,longitude)
-        let city = location["city"]?location["city"].replaceAll("City","").replaceAll("Zone",""):location["locality"]
-        city = city.includes(",")?city.substring(0,city.indexOf(",")):city
-        setStaringPlace(city)
-    }
+    
     useEffect(()=>{
         async function fetchCoordsandLocation(){
             if(!starting_place){
-                await getClientCoordinates(onSuccess)
+                const city = await getClientIpLocation()
+                const thereIs = places.find(plc=>plc.name===city)
+                if(thereIs){
+                    setStartingPlace(city)
+                }
             }
         }
         fetchCoordsandLocation()
@@ -44,11 +42,14 @@ export default function PassengerForm({starting_place,destination_place,date,add
             !departureDateValue?setDepartureDateError(true):setDepartureDateError(false)
             return
         }
+        else if(starting_placeError||destinationError||departureDateError){
+            return
+        }
         navigate(`/searchResult?starting_place=${startingPlace}&destination=${destination}&date=${departureDateValue}`)
     }
 
     const setStartingPlaceValue = (starting_place_param)=>{
-        setStaringPlace(starting_place_param )
+        setStartingPlace(starting_place_param )
         if(!starting_place_param&&starting_place_param!==""){
             setStartingPlaceError(false)
         }
@@ -86,7 +87,7 @@ export default function PassengerForm({starting_place,destination_place,date,add
      <SelectComponent label={"Leaving From"} value={startingPlace} setValue={(e)=>setStartingPlaceValue(e.target.value)} options={places} setError={setStartingPlaceError} error={starting_placeError}/>
      <Box sx={{display:{md:"none",xs:"block"},textAlign:"center"}}>{destination&&<img src={places.find((plc)=>plc.name===destination).image} height="200" width={"250"} alt={destination} />}</Box>
      <SelectComponent label={"Destination"} value={destination} setValue={(e)=>setDestinationPlaceValue(e.target.value)} options={places} setError={setDestinationError} error={destinationError}/>
-     <DepartureDatePicker value={departureDateValue} setDateValue={setDepartureDate} error={departureDateError}/>
+     <DepartureDatePicker value={departureDateValue} setDateValue={setDepartureDate} error={departureDateError} setError={setDepartureDateError}/>
      <Box sx={{display:{md:"flex",xs:"none"},justifyContent:"center",mb:"2rem"}}>
      {getCardsOfTheWeek(departureDateButtons)}
      </Box>

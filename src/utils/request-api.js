@@ -50,18 +50,33 @@ export const getClientCoordinates = async(success)=>{
 }
 
 export const getClientCityFromCoordinates = async(lat,long)=>{
-    const resp = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
-    return resp.data
+    try{
+        const resp = await axios.get(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`)
+        return resp.data
+    }
+    catch(e){
+        console.error("There is an error fetching the Client Location")
+        return 
+    }
 }
 
 const getClientIPv4 = async()=>{
-    const ipData = await axios.get("http://jsonip.com")
-    return ipData.data["ip"]
+    try{
+        const ipData = await axios.get("http://jsonip.com")
+        return ipData.data["ip"]
+    }
+    catch(e){
+        console.error("There is an error fetching the IP")
+    }
 }
 
 export const getClientIpLocation = async()=>{
-    const API_KEY = "Bearer 3785|HeGlqnpxwgnwSVhjy1NIvF2EHoSCbkqmCMShEaLE";
-    const ipAddress = await getClientIPv4()
-    const getLocationData = await axios.get(`https://ipxapi.com/api/ip?ip=${ipAddress}`,{headers:{"Authorization":`${API_KEY}`,"Accept": "application/json"}})
-    return getLocationData.data["city"]
+    try{
+        const ipAddress = await getClientIPv4()
+        const getLocationData = await axios.get(`http://localhost:9000/${ipAddress}`)
+        return getLocationData.data["city"]
+    }
+    catch(e){
+        console.error(e.message)
+    }
 }

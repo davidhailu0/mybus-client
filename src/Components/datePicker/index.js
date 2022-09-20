@@ -15,7 +15,7 @@ const customTheme = createTheme({
     }
 }) 
 
-export default function DepartureDatePicker({value,setDateValue,error}){
+export default function DepartureDatePicker({value,setDateValue,error,setError}){
   const tomorrowDate = new Date()
   tomorrowDate.setDate(tomorrowDate.getDate()+1)
     return (<LocalizationProvider dateAdapter={AdapterMoment}>
@@ -30,7 +30,14 @@ export default function DepartureDatePicker({value,setDateValue,error}){
             disableHighlightToday
             onChange={(value)=>{
               const date = new Date(value)
-              setDateValue(date.getTime())
+              const dateNow = new Date()
+              if(date.getTime()>dateNow.getTime()){
+                setError(false)
+                setDateValue(date.getTime())
+              }
+              else{
+                setError(true)
+              }
             }}
             renderInput={(params) => <TextField {...params} required error={error} fullWidth sx={{width:"96%",margin:"1rem 0.5rem 2rem",":hover fieldset":{borderWidth:"3px"}}}/>}
           />
