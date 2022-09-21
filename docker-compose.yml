@@ -14,7 +14,7 @@ services:
     networks:
       - api
   server:
-    image: davidhailu0/mybusserver
+    image: davidhailu0/mybusserver:v1
     container_name: localserver
     environment:
       - MONGODB_URI=mongodb+srv://mybus:priuJr3FVQ96IcSB@cluster0.gn92lfx.mongodb.net/?retryWrites=true&w=majority
