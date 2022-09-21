@@ -22,7 +22,7 @@ export default function PassengerForm({starting_place,destination_place,date,add
     const navigate = useNavigate()
     
     useEffect(()=>{
-        async function fetchCoordsandLocation(){
+        async function fetchCity(){
             if(!starting_place){
                 const city = await getClientIpLocation()
                 const thereIs = places.find(plc=>plc.name===city)
@@ -31,7 +31,7 @@ export default function PassengerForm({starting_place,destination_place,date,add
                 }
             }
         }
-        fetchCoordsandLocation()
+        fetchCity()
     },[starting_place])
 
     const submitForm = (e)=>{
