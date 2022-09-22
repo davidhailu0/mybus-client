@@ -40,7 +40,7 @@ pipeline{
                 // withCredentials([usernamePassword(credentials:"credential ID",usernameVariable:USER,passwordVariable:PWD)]){
 
                 // }
-                sh "docker-compose run -d prod"
+                sh "docker-compose run prod"
             }
         }
     }
