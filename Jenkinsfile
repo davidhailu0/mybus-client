@@ -45,16 +45,16 @@ pipeline{
             }
         }
     }
-    // post{
-    //     always{
+    post{
+        always{
+            sh "docker system prune"
+        }
+        // success{
 
-    //     }
-    //     success{
+        // }
+        // failure{
 
-    //     }
-    //     failure{
-
-    //     }
-    // }
+        // }
+    }
 }
 

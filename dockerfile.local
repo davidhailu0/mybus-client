@@ -4,10 +4,14 @@ RUN mkdir mybus_client
 
 WORKDIR /mybus_client
 
+ENV REACT_APP_HOST=server
+
 COPY . ./
 
-COPY ./package.json ./
+COPY ./package.json ./yarn.lock ./
 
 RUN yarn install
+
+EXPOSE 3000
 
 CMD ["yarn","start"]

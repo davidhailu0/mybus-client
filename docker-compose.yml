@@ -22,6 +22,11 @@ services:
       - HOST=localhost
     networks:
       - api
+  database:
+    image: mongo:nanoserver
+    container_name: db
+    networks:
+      - api
   test:
     container_name: mybus_test
     privileged: true
