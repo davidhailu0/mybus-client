@@ -5,9 +5,9 @@ pipeline{
                 args "-v /var/run/docker.sock:/var/run/docker.sock -u root"
             }
         }
-    environment{
-        AWS_CREDENTIAL = credentials("CREDENTIAL ID")
-    }
+    // environment{
+    //     AWS_CREDENTIAL = credentials("CREDENTIAL ID")
+    // }
     // tools{
         
     // }
