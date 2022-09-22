@@ -5,10 +5,9 @@ pipeline{
                 args "-v /var/run/docker.sock:/var/run/docker.sock -u root"
             }
         }
-    // environment{
-        // NEW_VERSION = "1.3"
-        // SERVER_CREDENTIAL = credentials("CREDENTIAL ID")
-    // }
+    environment{
+        AWS_CREDENTIAL = credentials("CREDENTIAL ID")
+    }
     // tools{
         
     // }
