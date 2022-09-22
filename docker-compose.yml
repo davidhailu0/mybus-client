@@ -39,7 +39,7 @@ services:
       - server
     networks:
       - api
-    command: npm run ci:e2e
+    command: yarn run ci:e2e
   prod:
     container_name: mybus-app
     build:
