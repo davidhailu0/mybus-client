@@ -2,6 +2,7 @@ import { useState } from "react";
 import {CardContent,CardActions,Card,Button,Typography,Box} from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { postRequest } from "../../utils/request-api";
+import busCompanies from "../../utils/busCompanies";
 import swal from "sweetalert";
 
 const customTheme = createTheme({
@@ -12,7 +13,7 @@ const customTheme = createTheme({
     }
 }) 
 
-export default function ResultCard({starting_place,destination,date,price}){
+export default function ResultCard({starting_place,destination,date,price,busProvider}){
   const [buttonText,setButtonText] = useState("Book Ticket")
   const buttonClicked = async()=>{
     const respData = await postRequest("/ticket/buyticket",{starting_place,destination,date,price})
@@ -20,16 +21,19 @@ export default function ResultCard({starting_place,destination,date,price}){
     setButtonText("Booked")
   }
     return (<Card sx={{width:{md:"45vw",xs:"80vw"},m:"0 2rem 0.5rem",mt:"2rem"}} testcomponent="resultcard">
-        <CardContent sx={{display:"grid",justifyItems:'flex-start',pl:{md:"3.5rem",xs:"1rem"}}}>
+        <CardContent sx={{display:"flex",justifyItems:'flex-start',pl:{md:"3.5rem",xs:"1rem"}}}>
+          <img src={busCompanies.find(img=>img.name===busProvider).image} height="90" width="100" alt={busProvider} />
+          <Box sx={{display:"grid",justifyItems:'flex-start',width:"100%",ml:"1rem"}}>
           <Box sx={{display:"flex",justifyContent:"space-between",width:"100%"}}>
-            <Typography sx={{ fontWeight:"bold",display:"flex",fontSize:{xs:"1rem"},width:{md:"25%",xs:"33vw"}}}>
-          {starting_place}
-        </Typography>
-        <Box sx={{height:"5px",width:{md:"70%",xs:"20%"},background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
-      <Typography sx={{ fontWeight:"bold",display:"inline-flex",fontSize:{xs:"1rem"},width:{md:"25%",xs:"33vw"}}}>{destination}</Typography>
+                <Typography sx={{ fontWeight:"bold",display:"flex",fontSize:{xs:"1rem"},width:{md:"30%",xs:"33vw"}}}>
+              {starting_place}
+            </Typography>
+            <Box sx={{height:"5px",width:{md:"50%",xs:"20%"},background:"grey",margin:"0.5rem 1rem 0",display:"inline-flex"}}></Box>
+            <Typography sx={{ fontWeight:"bold",display:"inline-flex",fontSize:{xs:"1rem"},width:{md:"30%",xs:"33vw"}}}>{destination}</Typography>
+            </Box>
+            <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
+            <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Price: {price} birr</Typography>
           </Box>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Date: {new Date(parseInt(date)).toDateString()}</Typography>
-     <Typography sx={{ fontWeight:"bold",display:"flex",justifyContent:"flex-start"}}>Price: {price} birr</Typography>
     </CardContent>
     <CardActions sx={{display:"flex",justifyContent:"flex-end"}}>
       <ThemeProvider theme={customTheme}>

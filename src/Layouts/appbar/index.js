@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,11 +9,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
+import LanguageIcon from '@mui/icons-material/Language';
+import { Tooltip} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import bus_logo from '../../Assets/images/bus_logo.png'
+import { useCookies } from 'react-cookie';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import translateWord from '../../utils/languageTranslation';
+import { getClientIpLocation } from "../../utils/request-api"
 
 const pages = ['For Passengers', 'For Buses'];
+const languages = ['አማርኛ',"English","Oromifa","ትግርኛ"];
 
 const customTheme = createTheme({
     palette:{
@@ -25,7 +31,27 @@ const customTheme = createTheme({
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [language,setLanguage] = useState(null)
   const navigate = useNavigate()
+  const [cookies,setCookie] = useCookies(['lang'])
+
+  useEffect(()=>{
+    async function fetchLanguage(){
+      const languageData = await getClientIpLocation()
+      setCookie("lang",languageData['lang'])
+    }
+    if(!cookies.lang){
+      fetchLanguage()
+    }
+  },[cookies.lang,setCookie])
+
+  const handleOpenUserMenu = (event) => {
+    setLanguage(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setLanguage(null);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,9 +71,29 @@ const ResponsiveAppBar = () => {
     }
   };
 
+  const changeLanguage = (lang)=>{
+    switch(lang){
+      case "አማርኛ":
+        setCookie("lang","amh")
+        break;
+      case "English":
+        setCookie("lang","eng")
+        break;
+      case "Oromifa":
+        setCookie("lang","orm")
+        break;
+      case "ትግርኛ":
+        setCookie("lang","tgr")
+        break;
+      default:
+        setCookie("lang","amh")
+    }
+    handleCloseUserMenu()
+  }
+
   return (
     <ThemeProvider theme={customTheme}>
-    <AppBar position="static" sx={{background:"white"}}>
+    <AppBar position="static" sx={{background:"white",width:"100vw"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
@@ -69,7 +115,7 @@ const ResponsiveAppBar = () => {
               flexGrow:1
             }}
           >
-            MY BUS
+            {translateWord(cookies["lang"],"MY BUS")}
           </Typography>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <img src={bus_logo} alt='My Bus Logo' height={70}/>
@@ -90,7 +136,7 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            MY BUS
+            {translateWord(cookies["lang"],"MY BUS")}
           </Typography>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
@@ -123,7 +169,7 @@ const ResponsiveAppBar = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={()=>goTo(page)}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{translateWord(cookies["lang"],page)}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -136,9 +182,38 @@ const ResponsiveAppBar = () => {
                 className={page.split(" ").join("_")}
                 sx={{ my: 2, color: 'black', display: 'block' }}
               >
-                {page}
+                {translateWord(cookies["lang"],page)}
               </Button>
             ))}
+          </Box>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title={translateWord(cookies["lang"],"Change Language")}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <LanguageIcon/>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={language}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(language)}
+              onClose={handleCloseUserMenu}
+            >
+              {languages.map((setting) => (
+                <MenuItem key={setting} onClick={()=>changeLanguage(setting)}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
         </Toolbar>
       </Container>

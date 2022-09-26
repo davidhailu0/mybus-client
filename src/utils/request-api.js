@@ -74,7 +74,7 @@ export const getClientIpLocation = async()=>{
     try{
         const ipAddress = await getClientIPv4()
         const getLocationData = await axios.get(`http://${process.env.REACT_APP_HOST}:9000/${ipAddress}`)
-        return getLocationData.data["city"]
+        return getLocationData.data;
     }
     catch(e){
         console.error(e.message)

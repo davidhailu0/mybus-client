@@ -1,17 +1,20 @@
 import { Input } from 'antd';
+import { useCookies } from 'react-cookie';
+import translateWord from '../../utils/languageTranslation';
 import "./searchField.css"
 
 const { Search } = Input;
 
 export default function SearchBar({callBackOnSearch,setSearchValue,setError,error}){
+  const [cookie] = useCookies(["lang"])
   const changeValue = (value)=>{
     setError(false)
     setSearchValue(value)
   }
     return (<div style={{textAlign:"center"}}><Search
-        placeholder="Enter Your Ticket ID"
+        placeholder={translateWord(cookie["lang"],"Enter Your Ticket ID")}
         allowClear
-        enterButton="Search"
+        enterButton={translateWord(cookie["lang"],"Search")}
         size="large"
         status={error?'error':''}
         onSearch={callBackOnSearch}

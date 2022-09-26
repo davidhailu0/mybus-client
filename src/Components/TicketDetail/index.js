@@ -2,8 +2,6 @@ import {Box,Typography} from "@mui/material"
 
 const TicketDetail = ({_id,starting_place,destination,date,price})=>{
 
-    console.log(_id,starting_place,destination,date,price)
-
     return (<Box sx={{padding:{md:"2rem 20%",xs:"2rem 12%"},textAlign:{md:"center",xs:"start"},width:"80%",margin:"0 auto",borderRadius:"25px",background:"white"}}>
         <Typography variant="h3" sx={{fontSize:{md:"3rem",xs:"2rem"},textAlign:"center"}}>Your Ticket detail</Typography>
         <Box sx={{display:{md:"flex",xs:"grid"},justifyContent:{md:"left",xs:"flex-start"},my:"2rem"}}>
